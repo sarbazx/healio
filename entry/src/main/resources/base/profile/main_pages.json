@@ -1,9 +1,5 @@
 {
   "src": [
-    "pages/Index",
-    "pages/BodyTemp",
-    "pages/Calorie",
-    "pages/HeartRate",
-    "pages/StepCount"
+    "pages/Index"
   ]
 }

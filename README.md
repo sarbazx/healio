@@ -17,12 +17,12 @@ The cards are styled with rounded edges, centered content, and a clean layout. A
 
 # Preview
 
-<p align="left">
-    <img src="./images/1.PNG" width="24%"/>
-    <img src="./images/2.PNG" width="24%"/>
-    <img src="./images/3.PNG" width="24%"/>
-    <img src="./images/4.PNG" width="24%"/>
-</p>
+<div>
+    <img src="./screenshots/1.PNG" width="24%"/>
+    <img src="./screenshots/2.PNG" width="24%"/>
+    <img src="./screenshots/3.PNG" width="24%"/>
+    <img src="./screenshots/4.PNG" width="24%"/>
+</div>
 
 # Use Cases
 
@@ -45,7 +45,7 @@ The cards are styled with rounded edges, centered content, and a clean layout. A
 - **Tools**: DevEco Studio Vers 5.1.0.842
 - **Libraries**: @kit.ArkUI
 - 
-# Project Directory
+# Directory Structure
    ```
    entry/src/main/ets/
    |---pages
