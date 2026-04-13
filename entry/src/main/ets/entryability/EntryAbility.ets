@@ -1,13 +1,28 @@
-import { AbilityConstant, ConfigurationConstant, UIAbility, Want } from '@kit.AbilityKit';
+import { AbilityConstant, ConfigurationConstant, UIAbility, Want, abilityAccessCtrl } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
 
 const DOMAIN = 0x0000;
 
 export default class EntryAbility extends UIAbility {
-  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
-    this.context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET);
+  async onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): Promise<void> {
+    try {
+      this.context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET);
+    } catch (err) {
+      hilog.error(DOMAIN, 'testTag', 'Failed to set color mode. Cause: %{public}s', JSON.stringify(err));
+    }
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onCreate');
+    
+    // Request permissions
+    const atManager = abilityAccessCtrl.createAtManager();
+    try {
+      await atManager.requestPermissionsFromUser(this.context, [
+        'ohos.permission.READ_HEALTH_DATA',
+        'ohos.permission.ACTIVITY_MOTION'
+      ]);
+    } catch (err) {
+      hilog.error(DOMAIN, 'testTag', 'Failed to request permissions. Cause: %{public}s', JSON.stringify(err));
+    }
   }
 
   onDestroy(): void {

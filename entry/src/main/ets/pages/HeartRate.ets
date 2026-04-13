@@ -1,3 +1,5 @@
+import { sensor } from '@kit.SensorServiceKit';
+
 interface HeartStatus {
   color: Color
   text: string
@@ -5,16 +7,50 @@ interface HeartStatus {
 
 @Component
 export struct HeartRate {
+<<<<<<< Updated upstream
   bpm: number = 88
   lastMeasurementTime: string = '12:40 PM'
   @State status: HeartStatus = { color: Color.Green, text: 'Normal' }
+=======
+  @State bpm: number = 0
+  @State lastMeasurementTime: string = 'Never'
+  @State status: HeartStatus = { color: Color.Gray, text: 'No Data' }
+>>>>>>> Stashed changes
   @Consume('NavPathStack') pageStack: NavPathStack;
 
   aboutToAppear() {
-    this.updateStatus()
+    this.startHeartRateSensor()
+  }
+
+  aboutToDisappear() {
+    this.stopHeartRateSensor()
+  }
+
+  startHeartRateSensor() {
+    try {
+      sensor.on(sensor.SensorId.HEART_RATE, (data) => {
+        this.bpm = Math.round(data.heartRate);
+        this.lastMeasurementTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        this.updateStatus();
+      }, { interval: 1000000000 }); // 1 second in nanoseconds
+    } catch (err) {
+      console.error('Failed to start heart rate sensor: ' + JSON.stringify(err));
+    }
+  }
+
+  stopHeartRateSensor() {
+    try {
+      sensor.off(sensor.SensorId.HEART_RATE);
+    } catch (err) {
+      console.error('Failed to stop heart rate sensor: ' + JSON.stringify(err));
+    }
   }
 
   updateStatus() {
+    if (this.bpm === 0) {
+      this.status = { color: Color.Gray, text: 'No Data' }
+      return;
+    }
     if (this.bpm < 60) {
       this.status = { color: Color.Orange, text: 'Low' }
     } else if (this.bpm <= 100) {
