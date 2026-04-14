@@ -1,14 +1,8 @@
-<<<<<<< Updated upstream
-@Component
-export struct StepCount {
-  steps: number[] = [3000, 4500, 7000, 9000, 6000, 4000, 2000];
-=======
 import { sensor } from '@kit.SensorServiceKit';
 
 @Component
 export struct StepCount {
   @State steps: number[] = [3000, 4500, 7000, 9000, 6000, 4000, 2000];
->>>>>>> Stashed changes
   days: string[] = ['Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun'];
   @Consume('NavPathStack') pageStack: NavPathStack;
 

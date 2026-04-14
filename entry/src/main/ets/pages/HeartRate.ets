@@ -7,15 +7,9 @@ interface HeartStatus {
 
 @Component
 export struct HeartRate {
-<<<<<<< Updated upstream
   bpm: number = 88
   lastMeasurementTime: string = '12:40 PM'
   @State status: HeartStatus = { color: Color.Green, text: 'Normal' }
-=======
-  @State bpm: number = 0
-  @State lastMeasurementTime: string = 'Never'
-  @State status: HeartStatus = { color: Color.Gray, text: 'No Data' }
->>>>>>> Stashed changes
   @Consume('NavPathStack') pageStack: NavPathStack;
 
   aboutToAppear() {
