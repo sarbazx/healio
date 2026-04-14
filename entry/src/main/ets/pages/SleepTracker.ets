@@ -23,13 +23,11 @@ export struct SleepTracker {
       return;
     }
     try {
-      // Subscribe to sleep record data using healthService.workout.onData
       this.listener = (data: healthService.SampleReal[]) => {
         if (data && data.length > 0) {
           this.processSleepData(data);
         }
       };
-      // Use the DataType constant for SLEEP_RECORD (id: 1007)
       const sleepType: healthStore.DataType = {
         id: 1007,
         name: 'sleep'
@@ -37,11 +35,11 @@ export struct SleepTracker {
       healthService.workout.onData(sleepType, this.listener).then(() => {
         this.isMonitoring = true;
       }).catch((err: BusinessError) => {
-        console.error('Failed to start sleep monitoring: ' + err.message);
+        console.error(`Failed to start sleep monitoring: ${JSON.stringify(err)}`);
         this.lastSleepDate = 'No Data';
       });
     } catch (err) {
-      console.error('Sleep monitoring error: ' + JSON.stringify(err));
+      console.error(`Sleep monitoring error: ${JSON.stringify(err)}`);
     }
   }
 
@@ -73,7 +71,7 @@ export struct SleepTracker {
         healthService.workout.offData(sleepType, this.listener);
         this.isMonitoring = false;
       } catch (err) {
-        console.error('Failed to stop sleep monitoring: ' + JSON.stringify(err));
+        console.error(`Failed to start sleep monitoring: ${JSON.stringify(err)}`);
       }
     }
   }

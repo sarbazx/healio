@@ -26,9 +26,9 @@ export struct HeartRate {
         this.bpm = Math.round(data.heartRate);
         this.lastMeasurementTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         this.updateStatus();
-      }, { interval: 1000000000 }); // 1 second in nanoseconds
+      }, { interval: 1000000000 });
     } catch (err) {
-      console.error('Failed to start heart rate sensor: ' + JSON.stringify(err));
+      console.error(`Failed to start heart rate sensor: ${JSON.stringify(err)}`);
     }
   }
 
@@ -36,7 +36,7 @@ export struct HeartRate {
     try {
       sensor.off(sensor.SensorId.HEART_RATE);
     } catch (err) {
-      console.error('Failed to stop heart rate sensor: ' + JSON.stringify(err));
+      console.error(`Failed to start heart rate sensor: ${JSON.stringify(err)}`);
     }
   }
 

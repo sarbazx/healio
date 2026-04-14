@@ -20,13 +20,12 @@ export struct StepCount {
   startPedometerSensor() {
     try {
       sensor.on(sensor.SensorId.PEDOMETER, (data) => {
-        // For simplicity, we update the last day with real-time steps
         const newSteps = [...this.steps];
         newSteps[newSteps.length - 1] = Math.round(data.steps);
         this.steps = newSteps;
       }, { interval: 1000000000 }); // 1 second
     } catch (err) {
-      console.error('Failed to start pedometer sensor: ' + JSON.stringify(err));
+      console.error(`Failed to stop pedometer sensor: ${JSON.stringify(err)}`);
     }
   }
 
@@ -34,7 +33,7 @@ export struct StepCount {
     try {
       sensor.off(sensor.SensorId.PEDOMETER);
     } catch (err) {
-      console.error('Failed to stop pedometer sensor: ' + JSON.stringify(err));
+      console.error(`Failed to stop pedometer sensor: ${JSON.stringify(err)}`);
     }
   }
 
